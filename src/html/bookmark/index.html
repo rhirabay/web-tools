@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>BookMarker</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="../../js/string-utils.js"></script>
+    <script src="../../js/localstorage-utils.js"></script>
+</head>
+<body>
+<div class="container-fluid">
+    <h1 class="text-center">BookMarker</h1>
+
+    <div class="row">
+        <label for="url" class="col-2 control-label">URL</label>
+        <div class="col-10">
+            <input id="url" class="form-control" placeholder="https://xxxx">
+        </div>
+    </div>
+    <div class="row">
+        <label for="title" class="col-2 control-label">Title</label>
+        <div class="col-10">
+            <input id="title" class="form-control" placeholder="title">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-2"></div>
+        <button class="col-10 btn btn-info" id="btn_registration">登録</button>
+    </div>
+
+    <br>
+    <div class="row">
+        <label for="search" class="col-2 control-label">Title</label>
+        <div class="col-10">
+            <input id="search" class="form-control" placeholder="search...">
+        </div>
+    </div>
+    <br>
+    <div class="list-group" id="bookmark-list">
+        <!-- スクリプトで追加-->
+    </div>
+</div>
+<script>
+    $(function() {
+        let obj_url = $('#url');
+        let obj_title = $('#title');
+        let obj_list = $('#bookmark-list');
+        let obj_search = $('#search');
+        let lsm = new LocalStorageMap('bookmarks');
+        let bookmarks = lsm.get();
+
+        let addLink = function(id, item) {
+            obj_list.append(`<a target="_blank" class="list-group-item" href="${item['url']}" id="${id}">${item['title']}</a>`);
+        };
+
+        console.log(bookmarks);
+        for(let id in bookmarks) {
+            addLink(id, bookmarks[id]);
+        }
+
+        $('#btn_registration').click(function() {
+            let url = obj_url.val();
+            let title = obj_title.val();
+            // どっちかが空だったらスキップ
+            if(!url || !title) {
+                return;
+            }
+            // localstorageに保存
+            let id = randomString(8);
+            let item = {url: url, title: title};
+            lsm.add(id, item);
+            addLink(id, item);
+
+            obj_url.val('');
+            obj_title.val('');
+        });
+
+        obj_search.keyup(function() {
+            let filter = obj_search.val().toUpperCase();
+            $('.list-group-item').filter(function() {
+                $(this).toggle($(this).text().toUpperCase().indexOf(filter) > -1)
+            });
+        });
+    });
+</script>
+</body>
+</html>
