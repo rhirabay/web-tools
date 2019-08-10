@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>Base64エンコーダ</title>
+    <!-- レスポンシブWebデザインを使うために必要なmetaタグ -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+</head>
+<body class="bg-dark text-light">
+<div class="container">
+    <h1 class="text-center text-success">Base64エンコーダー</h1>
+    <h3 class="text-success">エンコード</h3>
+    <textarea name="encode" id="encode_target" class="form-control bg-secondary text-light"></textarea>
+    <br/>
+    <h5>１段回</h5>
+    <pre id="encode_result1" class="bg-secondary text-light pl-2 pt-2 pb-2">※エンコード結果</pre>
+    <h5>２段回</h5>
+    <pre id="encode_result2" class="bg-secondary text-light pl-2 pt-2 pb-2">※エンコード結果</pre>
+    <br/>
+    <br/>
+    <h3 class="text-success">デコード</h3>
+    <textarea name="encode" id="decode_target" class="form-control bg-secondary text-light"></textarea>
+    <br/>
+    <h5>１段回</h5>
+    <pre id="decode_result1" class="bg-secondary text-light pt-2 pb-2">※エンコード結果</pre>
+</div>
+<script>
+    $(function() {
+        $('#encode_target').keyup(function() {
+            let target = $('#encode_target').val();
+            let first  = window.btoa(target);
+            let second = window.btoa(first);
+            $('#encode_result1').text(first);
+            $('#encode_result2').text(second);
+        });
+
+        $('#decode_target').keyup(function() {
+            let target = $('#decode_target').val();
+            let first  = window.atob(target);
+            // let second = window.btoa(first);
+            $('#decode_result1').text(first);
+            // $('#encode_result2').text(second);
+        });
+    });
+</script>
+<style>
+    pre {
+        white-space: pre-wrap;
+    }
+</style>
+</body>
+</html>
