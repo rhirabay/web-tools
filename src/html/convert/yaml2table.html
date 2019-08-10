@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org" ng-app="myapp">
+<head>
+    <meta charset="UTF-8">
+    <title>Yaml to Table</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- レスポンシブWebデザインを使うために必要なmetaタグ -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="../../ico/favicon.peru.ico">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/3.13.1/js-yaml.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.7.8/angular.min.js"></script>
+</head>
+<body>
+<div class="container-fluid">
+    <h1 class="text-center">Yaml to Table</h1>
+    <div class="row" ng-controller="MainController">
+        <div class="col-6 border-right">
+            <h3>yaml</h3>
+            <textarea rows="5" id="target1" class="form-control" ng-keyup="onkeyup1(e)"></textarea>
+            <h3>DB</h3><br>
+            <div ng-repeat="(key, records) in databases1" class="row">
+                <h5>{{key}}</h5>
+                <div class="table-responsive">
+                    <table class="table text-nowrap table-sm text-sm-left table-bordered table-hover">
+                        <thead class="bg-success">
+                        <tr>
+                            <th ng-repeat="(column, data) in records[0]">{{column}}</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="record in records">
+                            <td ng-repeat="data in record">{{data}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-6 border-left">
+            <h3>yaml</h3>
+            <textarea rows="5" id="target2" class="form-control" ng-keyup="onkeyup2(e)"></textarea>
+            <h3>DB</h3><br>
+            <div ng-repeat="(key, records) in databases2" class="row">
+                <h5>{{key}}</h5>
+                <div class="table-responsive">
+                    <table class="table text-nowrap table-sm text-sm-left table-bordered table-hover">
+                        <thead class="bg-success">
+                        <tr>
+                            <th ng-repeat="(column, data) in records[0]">{{column}}</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="record in records">
+                            <td ng-repeat="data in record">{{data}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    "use strict";
+    angular.module('myapp', [])
+        .controller('MainController', ['$scope', function($scope) {
+            let databases1 = {};
+            let databases2 = {};
+            $scope.databases1 = databases1;
+            $scope.databases2 = databases2;
+            $scope.onkeyup1 = function(e) {
+                let yaml = $('#target1').val();
+                let databases1 = jsyaml.load(yaml);
+                $scope.databases1 = databases1;
+            }
+            $scope.onkeyup2 = function(e) {
+                let yaml = $('#target2').val();
+                let databases2 = jsyaml.load(yaml);
+                $scope.databases2 = databases2;
+            }
+        }]);
+</script>
+</body>
+</html>
