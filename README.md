@@ -7,4 +7,4 @@
 - [yaml2secret](https://rhirabay.github.io/web-tools/src/html/convert/yaml2secret)
 - [yaml2table](https://rhirabay.github.io/web-tools/src/html/convert/yaml2table)
 - [yaml2environment](https://rhirabay.github.io/web-tools/src/html/convert/yaml2environment)
-- [LF置換](https://rhirabay.github.io/web-tools/src/html/convert/lf_replacer)
+- [LF置換](https://rhirabay.github.io/web-tools/src/html/convert/lf_replacer.html)
