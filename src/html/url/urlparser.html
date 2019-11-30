@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>Base64エンコーダ</title>
+    <!-- レスポンシブWebデザインを使うために必要なmetaタグ -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+</head>
+<body class="bg-dark text-light">
+<div class="container-fluid">
+    <h2>URL parser</h2>
+    <input type="text" id="target" class="form-control bg-secondary text-light">
+    <button class="btn btn-success" id="exec">実行</button>
+    <div id="result"></div>
+</div>
+<script>
+    $(function() {
+        $('#exec').click(function() {
+            let target = $('#target').val();
+            let parser = new URL(target);
+            console.log(parser.origin + parser.pathname);
+            console.log(parser.search);
+            let queries = parser.search.split(/&|\?/);
+            console.log(queries);
+            // while(true) {
+            //     let iterableResult = parser.searchParam.keys.next();
+            //     console.log(parser.searchParams.get(iterableResult.value));
+            //     if (iterableResult.done) break;
+            // }
+            let result = {
+                uri: parser.origin + parser.pathname,
+                param: {}
+            };
+            for (let i=1; i < queries.length; i++) {
+                let query = queries[i].split('=');
+                result.param[query[0]] = decodeURIComponent(query[1]);
+            }
+
+            $('#result').prepend(`
+<div class="alert alert-success fade show" role="alert">
+    <pre>${JSON.stringify(result, null, "  ")}</pre>
+</div>`);
+        });
+    });
+</script>
+<style>
+    pre{
+        white-space:pre-wrap;
+        white-space:-moz-pre-wrap;
+        white-space:-o-pre-wrap;
+        white-space:-pre-wrap;
+        word-wrap:break-word;
+    }
+</style>
+</body>
+</html>

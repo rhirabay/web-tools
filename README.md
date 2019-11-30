@@ -8,3 +8,5 @@
 - [yaml2table](https://rhirabay.github.io/web-tools/src/html/convert/yaml2table)
 - [yaml2environment](https://rhirabay.github.io/web-tools/src/html/convert/yaml2environment)
 - [LF置換](https://rhirabay.github.io/web-tools/src/html/convert/lf_replacer.html)
+- [URL parser](https://rhirabay.github.io/web-tools/src/html/url/urlparser.html)
+- [URL encode/decode](https://rhirabay.github.io/web-tools/src/html/url/urlencode.html)
