@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>Qiita My Contents</title>
+
+    <link rel="stylesheet" href="https://unpkg.com/bootstrap@latest/dist/css/bootstrap.min.css">
+
+    <script src="https://unpkg.com/jquery@latest/dist/jquery.min.js"></script>
+    <script src="https://unpkg.com/bootstrap@latest/dist/js/bootstrap.min.js"></script>
+
+    <script src="https://unpkg.com/redux@latest/dist/redux.js"></script>
+    <script src="https://unpkg.com/react@latest/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@latest/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/react-redux@latest/dist/react-redux.js"></script>
+    <script src="https://unpkg.com/axios@latest/dist/axios.js"></script>
+    <script src="https://unpkg.com/babel-standalone@latest/babel.min.js"></script>
+
+    <script src="./search-my-contents.js"></script>
+    <script src="../../js/thunk.js"></script>
+</head>
+<body>
+<div class="container-fluid" id="app"></div>
+</body>
+<script type="text/babel">
+    const FilterComponent = ({filter, onChange}) => (
+        <div>
+            <input type="text" value={filter} placeholder="filter" className="form-control" onChange={onChange} />
+            {filter}
+        </div>
+    )
+
+    const Filter = ReactRedux.connect(state => ({
+        filter: state.filter
+    }), dispatch => ({
+        onChange: (event) => dispatch(changeFilterAction(event.target.value))
+    }))(FilterComponent)
+
+    const ItemComponent = ({item}) => <a target="_blank" className="list-group-item" href={item.url}>{item.title}</a>
+
+    const ItemsComponent = ({items}) => {
+        items = items.map(item => <ItemComponent item={item}/>)
+        return <div className="list-group">{items}</div>
+    }
+
+    const Items = ReactRedux.connect(state => ({
+        items: mapStateToFilteredItems(state)
+    }))(ItemsComponent)
+
+    const App = () => (
+        <div>
+            <h1>Qiita My Contents</h1>
+            <Filter />
+            <hr />
+            <Items />
+        </div>
+    )
+
+    const store = Redux.createStore(reducer, Redux.applyMiddleware(thunk))
+    store.dispatch(getItemsMiddleware())
+
+    const Provider = ReactRedux.Provider
+    ReactDOM.render(
+        <Provider store={store}>
+            <App/>
+        </Provider>,
+        document.getElementById('app')
+    );
+
+</script>
+</html>
