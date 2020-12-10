@@ -1,0 +1,7 @@
+aside.svelte-8ogalu.svelte-8ogalu{left:-100%;transition:left 0.3s ease-in-out
+    }.open.svelte-8ogalu.svelte-8ogalu{left:0
+    }svg.svelte-8ogalu.svelte-8ogalu{min-height:24px;transition:transform 0.3s ease-in-out}svg.svelte-8ogalu line.svelte-8ogalu{stroke:currentColor;stroke-width:3;transition:transform 0.3s ease-in-out
+    }button.svelte-8ogalu.svelte-8ogalu{z-index:20}.open.svelte-8ogalu svg.svelte-8ogalu{transform:scale(0.7)
+    }.open.svelte-8ogalu #top.svelte-8ogalu{transform:translate(6px, 0px) rotate(45deg)
+    }.open.svelte-8ogalu #middle.svelte-8ogalu{opacity:0}.open.svelte-8ogalu #bottom.svelte-8ogalu{transform:translate(-12px, 9px) rotate(-45deg)
+    }
