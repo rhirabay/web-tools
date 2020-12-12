@@ -1,7 +1,7 @@
 # web-tools
 
 # tool list
-- [svelte tool](https://rhirabay.github.io/web-tools/svelte/public/index.html)
+- [svelte tool](https://rhirabay.github.io/web-tools/src/svelte/public/index.html)
 - [qiita my contents](https://rhirabay.github.io/web-tools/src/html/qiita/search-my-contents.html)
 - [bookmark](https://rhirabay.github.io/web-tools/src/html/bookmark/index.html)
 - [base64](https://rhirabay.github.io/web-tools/src/html/convert/base64)
