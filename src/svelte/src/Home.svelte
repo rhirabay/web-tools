@@ -4,4 +4,4 @@
 
 <SideMenu/>
 
-<h1>Welcome to My tools !</h1>
+<h1 class="content-center content">Welcome to My tools !</h1>
