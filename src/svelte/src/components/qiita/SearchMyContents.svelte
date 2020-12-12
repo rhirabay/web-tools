@@ -6,7 +6,15 @@
     let url = 'https://qiita.com/api/v2/users/rhirabay/items'
 
     let items = []
-    $: filteredItems = items
+    let filter = ''
+    $: filteredItems = items.filter(item => {
+        for (let f of filter.split(' ')) {
+            if (item.lowerTitle.indexOf(f) === -1) {
+                return false
+            }
+        }
+        return true
+    })
 
     function getContents() {
         axios.get(url).then(res => {
@@ -22,6 +30,9 @@
 </script>
 
 <SideMenu/>
+
+<input type='text' bind:value={filter} placeholder="Enter filter" class="w-full mt-2 mb-6 px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-green-500" />
+
 <ul class="">
     {#each filteredItems as item, index}
     <li class="border list-none rounded-sm px-3 py-3"><a target="_blank" href={item.url}>{item.title}</a></li>
