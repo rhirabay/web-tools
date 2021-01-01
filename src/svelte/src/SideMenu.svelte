@@ -6,6 +6,7 @@
         {title: 'Qiita My Contents', uri: '/qiita/search-my-contents'},
         {title: 'LF置換', uri: '/convert/LFReplacer'},
         {title: 'Base64 enc/dec', uri: '/convert/Base64'},
+        {title: 'yaml -> environment', uri: '/springboot/yaml2environment'},
     ]
 </script>
 
