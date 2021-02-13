@@ -3,7 +3,7 @@
     import {onMount} from 'svelte';
     import SideMenu from "../../SideMenu.svelte";
 
-    let url = 'https://qiita.com/api/v2/users/rhirabay/items'
+    let url = 'https://qiita.com/api/v2/users/rhirabay/items?per_page=100'
 
     let items = []
     let filter = ''
